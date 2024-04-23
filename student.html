@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% extends 'auth_layout.html' %}
+{% block title %}Student{% endblock title %}
+<h2>
+
+{% block subheading %}
+
+  {% if request.args.get('task') == 'edit' %} 
+    Edit Student
+  {% else %}
+    Add Student
+  {% endif %}
+
+{% endblock subheading %}
+</h2>
+
+{% block content %}
+
+<p align='center'>
+  <a href="{{ url_for('student_blueprint.seestudents') }}">See Record</a>  
+</p>
+
+{% if msg %}
+  <p><b>{{ msg }}</b></p>
+{% elif request.args.get('done')  %}  
+  <p><b>Edited</b></p>
+{% endif %}
+    <form method="POST" action ="{{ url_for('student_blueprint.addstudent') }}">
+      Surname: <br/>
+      {% if preview is defined %}
+          <input type="text" name="surname" value="{{ preview[1] }}" />
+      {% else %}
+          <input type="text" name="surname" />
+      {% endif %}
+        
+      <br/>
+      
+      Other names: <br/>
+      {% if preview is defined %}
+          <input type="text" name="othernames" value="{{ preview[2] }}" />
+      {% else %}
+          <input type="text" name="othernames" />
+      {% endif %}     
+      <br/>
+      
+      Address: <br/>
+      <textarea name="address">{% if preview is defined %}{{ preview[3] }}{% endif %}</textarea>
+      
+      {% if preview is defined %}
+        <input type = "hidden" name = "edit_id" value="{{ preview[0] }}" />
+      {% endif %}
+
+      <br/>
+      <input type="submit" name="save" value="Save"/>
+  </form>
+
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %}Register{% endblock title %}
+<h2>
+
+{% block subheading %}
+Student Register Form
+{% endblock subheading %}
+</h2>
+
+{% block content %}
+
+<p align='center'>
+  <a href="{{ url_for('authentication_blueprint.login') }}">Login Here</a>  
+</p>
+
+{% if msg %}
+  <p><b>{{ msg }}</b></p>
+{% endif %}
+    <form method="POST" action ="{{ url_for('authentication_blueprint.register') }}">
+      
+      *Email: <br/>
+      <input type="email" name="email" required="true" />
+      <br/>
+      
+      *Password: <br/>
+      <input type="password" name="password" required="true" />
+      <br/>
+      
+      *Surname: <br/>
+      <input type="text" name="surname" required="true" />
+      <br/>
+      Other names: <br/>
+      <input type="text" name="othernames" />
+      <br/>
+      Address: <br/>
+      <textarea name="address"></textarea>
+      
+
+      <br/>
+      <input type="submit" name="register" value="Register"/>
+  </form>
+
+{% endblock content %}
